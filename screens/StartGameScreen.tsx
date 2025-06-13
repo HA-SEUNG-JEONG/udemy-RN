@@ -1,7 +1,36 @@
 import PrimaryButton from "@/components/PrimaryButton";
-import { StyleSheet, TextInput, View } from "react-native";
+import { useState } from "react";
+import { Alert, StyleSheet, TextInput, View } from "react-native";
 
 const StartGameScreen = () => {
+    const [enteredNumber, setEnteredNumber] = useState("");
+
+    const numberInputHandler = (input: string) => {
+        setEnteredNumber(input);
+    };
+
+    const confirmInputHandler = () => {
+        const chosenNumber = parseInt(enteredNumber);
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            Alert.alert(
+                "Invalid number!",
+                "Number has to be a number between 1 and 99.",
+                [
+                    {
+                        text: "OK",
+                        style: "destructive", // 기본
+                        onPress: resetInputHandler
+                    }
+                ]
+            );
+            return;
+        }
+    };
+
+    const resetInputHandler = () => {
+        setEnteredNumber("");
+    };
+
     return (
         <View style={styles.inputContainer}>
             <TextInput
@@ -10,13 +39,19 @@ const StartGameScreen = () => {
                 keyboardType="number-pad"
                 autoCapitalize="none"
                 autoCorrect={false}
+                onChangeText={numberInputHandler}
+                value={enteredNumber}
             />
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton>Reset</PrimaryButton>
+                    <PrimaryButton onPress={resetInputHandler}>
+                        Reset
+                    </PrimaryButton>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton>Confirm</PrimaryButton>
+                    <PrimaryButton onPress={confirmInputHandler}>
+                        Confirm
+                    </PrimaryButton>
                 </View>
             </View>
         </View>
@@ -52,7 +87,8 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flex: 1
-    }
+    },
+    button: {}
 });
 
 export default StartGameScreen;
