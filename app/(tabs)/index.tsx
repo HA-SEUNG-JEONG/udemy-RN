@@ -2,7 +2,7 @@ import GameScreen from "@/screens/GameScreen";
 import StartGameScreen from "@/screens/StartGameScreen";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import { ImageBackground, SafeAreaView, StyleSheet } from "react-native";
 
 export default function HomeScreen() {
     const [userNumber, setUserNumber] = useState<number | null>(null);
@@ -27,7 +27,7 @@ export default function HomeScreen() {
                 imageStyle={styles.backgroundImage}
                 style={styles.container}
             >
-                {screen}
+                <SafeAreaView style={styles.container}>{screen}</SafeAreaView>
             </ImageBackground>
         </LinearGradient>
     );
