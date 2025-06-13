@@ -13,7 +13,7 @@ export default function HomeScreen() {
     let screen = <StartGameScreen pickedNumberHandler={pickedNumberHandler} />;
 
     if (userNumber) {
-        screen = <GameScreen />;
+        screen = <GameScreen userNumber={userNumber} />;
     }
     // View는 콘텐츠가 들어갈만큼만 차지
     return (
