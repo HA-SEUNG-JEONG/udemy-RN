@@ -1,8 +1,20 @@
+import GameScreen from "@/screens/GameScreen";
 import StartGameScreen from "@/screens/StartGameScreen";
 import { LinearGradient } from "expo-linear-gradient";
+import { useState } from "react";
 import { ImageBackground, StyleSheet } from "react-native";
 
 export default function HomeScreen() {
+    const [userNumber, setUserNumber] = useState<number | null>(null);
+
+    const pickedNumberHandler = (pickedNumber: number) => {
+        setUserNumber(pickedNumber);
+    };
+    let screen = <StartGameScreen pickedNumberHandler={pickedNumberHandler} />;
+
+    if (userNumber) {
+        screen = <GameScreen />;
+    }
     // View는 콘텐츠가 들어갈만큼만 차지
     return (
         <LinearGradient
@@ -15,7 +27,7 @@ export default function HomeScreen() {
                 imageStyle={styles.backgroundImage}
                 style={styles.container}
             >
-                <StartGameScreen />
+                {screen}
             </ImageBackground>
         </LinearGradient>
     );
