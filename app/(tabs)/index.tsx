@@ -1,3 +1,4 @@
+import GameOverScreen from "@/screens/GameOverScreen";
 import GameScreen from "@/screens/GameScreen";
 import StartGameScreen from "@/screens/StartGameScreen";
 import { LinearGradient } from "expo-linear-gradient";
@@ -5,16 +6,32 @@ import { useState } from "react";
 import { ImageBackground, SafeAreaView, StyleSheet } from "react-native";
 
 export default function HomeScreen() {
-    const [userNumber, setUserNumber] = useState<number | null>(null);
+    const [userNumber, setUserNumber] = useState<number>(0);
+    const [isGameOver, setIsGameOver] = useState<boolean>(true);
 
     const pickedNumberHandler = (pickedNumber: number) => {
         setUserNumber(pickedNumber);
+        setIsGameOver(false);
     };
+
+    const gameOverHandler = () => {
+        setIsGameOver(true);
+    };
+
     let screen = <StartGameScreen pickedNumberHandler={pickedNumberHandler} />;
 
     if (userNumber) {
-        screen = <GameScreen userNumber={userNumber} />;
+        screen = (
+            <GameScreen
+                userNumber={userNumber}
+                gameOverHandler={gameOverHandler}
+            />
+        );
     }
+    if (isGameOver && userNumber) {
+        screen = <GameOverScreen />;
+    }
+
     // View는 콘텐츠가 들어갈만큼만 차지
     return (
         <LinearGradient
