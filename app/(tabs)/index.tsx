@@ -39,7 +39,7 @@ export default function HomeScreen() {
         );
     }
     if (isGameOver && userNumber) {
-        screen = <GameOverScreen />;
+        screen = <GameOverScreen userNumber={userNumber} />;
     }
 
     // View는 콘텐츠가 들어갈만큼만 차지
