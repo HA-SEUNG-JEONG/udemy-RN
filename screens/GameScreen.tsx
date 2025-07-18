@@ -3,6 +3,7 @@ import NumberContainer from "@/components/game/NumberContainer";
 import InstructionText from "@/components/InstructionText";
 import PrimaryButton from "@/components/PrimaryButton";
 import Title from "@/components/Title";
+import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 
@@ -79,14 +80,14 @@ const GameScreen = ({ userNumber, gameOverHandler }: GameScreenProps) => {
                         <PrimaryButton
                             onPress={() => nextGuessHandler("lower")}
                         >
-                            -
+                            <Ionicons name="remove" size={24} color="white" />
                         </PrimaryButton>
                     </View>
                     <View style={styles.buttonContainer}>
                         <PrimaryButton
                             onPress={() => nextGuessHandler("greater")}
                         >
-                            +
+                            <Ionicons name="add" size={24} color="white" />
                         </PrimaryButton>
                     </View>
                 </View>
