@@ -8,63 +8,70 @@ import { useState } from "react";
 import { ImageBackground, SafeAreaView, StyleSheet } from "react-native";
 
 export default function HomeScreen() {
-    const [userNumber, setUserNumber] = useState<number>(0);
-    const [isGameOver, setIsGameOver] = useState<boolean>(true);
-    const [fontsLoaded] = useFonts({
-        "open-sans": require("../../assets/fonts/SpaceMono-Regular.ttf"),
-        "open-sans-bold": require("../../assets/fonts/OpenSans-Bold.ttf")
-    });
+  const [userNumber, setUserNumber] = useState<number | null>(null);
+  const [isGameOver, setIsGameOver] = useState<boolean>(true);
+  const [guessRounds, setGuessRounds] = useState<number>(0);
+  const [fontsLoaded] = useFonts({
+    "open-sans": require("../../assets/fonts/SpaceMono-Regular.ttf"),
+    "open-sans-bold": require("../../assets/fonts/OpenSans-Bold.ttf")
+  });
 
-    if (!fontsLoaded) {
-        return <AppLoading />;
-    }
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
-    const pickedNumberHandler = (pickedNumber: number) => {
-        setUserNumber(pickedNumber);
-        setIsGameOver(false);
-    };
+  const pickedNumberHandler = (pickedNumber: number) => {
+    setUserNumber(pickedNumber);
+    setIsGameOver(false);
+  };
 
-    const gameOverHandler = () => {
-        setIsGameOver(true);
-    };
+  const gameOverHandler = (rounds: number) => {
+    setGuessRounds(rounds);
+    setIsGameOver(true);
+  };
 
-    let screen = <StartGameScreen pickedNumberHandler={pickedNumberHandler} />;
+  const startNewGameHandler = () => {
+    setUserNumber(null);
+    setGuessRounds(0);
+  };
 
-    if (userNumber) {
-        screen = (
-            <GameScreen
-                userNumber={userNumber}
-                gameOverHandler={gameOverHandler}
-            />
-        );
-    }
-    if (isGameOver && userNumber) {
-        screen = <GameOverScreen userNumber={userNumber} />;
-    }
+  let screen = <StartGameScreen pickedNumberHandler={pickedNumberHandler} />;
 
-    // View는 콘텐츠가 들어갈만큼만 차지
-    return (
-        <LinearGradient
-            colors={["#72063c", "#ddb52f"]}
-            style={styles.container}
-        >
-            <ImageBackground
-                source={require("../../assets/images/background.png")}
-                resizeMode="cover"
-                imageStyle={styles.backgroundImage}
-                style={styles.container}
-            >
-                <SafeAreaView style={styles.container}>{screen}</SafeAreaView>
-            </ImageBackground>
-        </LinearGradient>
+  if (userNumber) {
+    screen = (
+      <GameScreen userNumber={userNumber} gameOverHandler={gameOverHandler} />
     );
+  }
+  if (isGameOver && userNumber) {
+    screen = (
+      <GameOverScreen
+        userNumber={userNumber}
+        roundsNumber={guessRounds}
+        onStartNewGame={startNewGameHandler}
+      />
+    );
+  }
+
+  // View는 콘텐츠가 들어갈만큼만 차지
+  return (
+    <LinearGradient colors={["#72063c", "#ddb52f"]} style={styles.container}>
+      <ImageBackground
+        source={require("../../assets/images/background.png")}
+        resizeMode="cover"
+        imageStyle={styles.backgroundImage}
+        style={styles.container}
+      >
+        <SafeAreaView style={styles.container}>{screen}</SafeAreaView>
+      </ImageBackground>
+    </LinearGradient>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    backgroundImage: {
-        opacity: 0.15
-    }
+  container: {
+    flex: 1
+  },
+  backgroundImage: {
+    opacity: 0.15
+  }
 });
