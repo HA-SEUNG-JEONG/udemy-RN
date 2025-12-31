@@ -1,11 +1,11 @@
 import PrimaryButton from "@/components/PrimaryButton";
 import Title from "@/components/Title";
-import Colors from "@/utils/colors";
+import { GameColors, ShadowStyles } from "@/constants/Colors";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 interface GameOverScreenProps {
   userNumber: number;
-  roundsNumber?: number;
+  roundsNumber: number;
   onStartNewGame: () => void;
 }
 
@@ -49,21 +49,17 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: Colors.primary400,
+    borderColor: GameColors.primary400,
     overflow: "hidden",
     margin: 36,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
-    elevation: 3
+    ...ShadowStyles.card
   },
   image: {
     width: "100%",
     height: "100%"
   },
   summaryText: {
-    fontFamily: "open-sans",
+    fontFamily: "space-mono",
     fontSize: 24,
     textAlign: "center",
     marginHorizontal: 24,
@@ -71,6 +67,6 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontFamily: "open-sans-bold",
-    color: Colors.primary500
+    color: GameColors.primary500
   }
 });

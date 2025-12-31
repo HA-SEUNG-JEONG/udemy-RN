@@ -1,4 +1,4 @@
-import Colors from "@/utils/colors";
+import { GameColors } from "@/constants/Colors";
 import { StyleSheet, Text } from "react-native";
 
 const Title = ({ title }: { title: string }) => {
@@ -12,10 +12,10 @@ const styles = StyleSheet.create({
         fontFamily: "open-sans-bold",
         fontSize: 24,
         fontWeight: "bold",
-        color: Colors.accent500,
+        color: GameColors.accent500,
         textAlign: "center",
         borderWidth: 2,
-        borderColor: Colors.accent500,
+        borderColor: GameColors.accent500,
         padding: 12
     }
 });

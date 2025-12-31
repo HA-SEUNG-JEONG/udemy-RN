@@ -1,20 +1,19 @@
-import Colors from "@/utils/colors";
+import { GameColors } from "@/constants/Colors";
 import { StyleProp, StyleSheet, Text, TextStyle } from "react-native";
 
-const InstructionText = ({
-    children,
-    style
-}: {
-    children: string;
+interface InstructionTextProps {
+    children: React.ReactNode;
     style?: StyleProp<TextStyle>;
-}) => {
+}
+
+const InstructionText = ({ children, style }: InstructionTextProps) => {
     return <Text style={[styles.instructionText, style]}>{children}</Text>;
 };
 
 const styles = StyleSheet.create({
     instructionText: {
-        fontFamily: "open-sans",
-        color: Colors.accent500,
+        fontFamily: "space-mono",
+        color: GameColors.accent500,
         fontSize: 24,
         textAlign: "center"
     }

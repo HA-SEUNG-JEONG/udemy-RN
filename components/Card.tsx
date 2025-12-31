@@ -1,3 +1,4 @@
+import { GameColors, ShadowStyles } from "@/constants/Colors";
 import { StyleSheet, View } from "react-native";
 
 const Card = ({ children }: { children: React.ReactNode }) => {
@@ -12,11 +13,8 @@ const styles = StyleSheet.create({
         marginTop: 36,
         marginHorizontal: 24,
         borderRadius: 8,
-        shadowColor: "black",
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 8,
-        backgroundColor: "#3b041f",
-        shadowOpacity: 0.25
+        backgroundColor: GameColors.primary300,
+        ...ShadowStyles.card
     }
 });
 

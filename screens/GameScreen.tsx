@@ -4,8 +4,8 @@ import InstructionText from "@/components/InstructionText";
 import PrimaryButton from "@/components/PrimaryButton";
 import Title from "@/components/Title";
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
-import { Alert, FlatList, StyleSheet, View } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { Alert, FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
 import GuessingLogItem from "./GuessingLogItem";
 
 interface GameScreenProps {
@@ -33,6 +33,13 @@ const GameScreen = ({ userNumber, gameOverHandler }: GameScreenProps) => {
     }
   }, [currentGuess, userNumber, gameOverHandler, guessRounds.length]);
 
+  const renderGuessItem = useCallback(
+    ({ item, index }: ListRenderItemInfo<number>) => (
+      <GuessingLogItem roundNumber={guessRounds.length - index} guess={item} />
+    ),
+    [guessRounds.length]
+  );
+
   const nextGuessHandler = (direction: "lower" | "greater") => {
     // Check if the user is lying about the direction
     if (
@@ -59,12 +66,10 @@ const GameScreen = ({ userNumber, gameOverHandler }: GameScreenProps) => {
       currentGuess
     );
 
-    // Create new rounds array with the new guess
-    const newGuessRounds = [...guessRounds, newRandomNumber];
-
     // Update state
+    const newGuessRounds = [...guessRounds, newRandomNumber];
     setCurrentGuess(newRandomNumber);
-    setGuessRounds((rounds) => [...rounds, newRandomNumber]);
+    setGuessRounds(newGuessRounds);
 
     // Check if the game is over (either by correct guess or no more possible numbers)
     if (
@@ -99,13 +104,12 @@ const GameScreen = ({ userNumber, gameOverHandler }: GameScreenProps) => {
       </Card>
       <FlatList
         data={guessRounds}
-        renderItem={({ item, index }) => (
-          <GuessingLogItem
-            roundNumber={guessRounds.length - index}
-            guess={item}
-          />
-        )}
-        keyExtractor={(item) => item.toString() ?? ""}
+        renderItem={renderGuessItem}
+        keyExtractor={(_, index) => `guess-${index}`}
+        contentContainerStyle={styles.listContent}
+        maxToRenderPerBatch={10}
+        removeClippedSubviews={true}
+        initialNumToRender={10}
       />
     </View>
   );
@@ -130,5 +134,8 @@ const styles = StyleSheet.create({
   },
   numberInputInstruction: {
     fontSize: 24
+  },
+  listContent: {
+    paddingVertical: 16
   }
 });

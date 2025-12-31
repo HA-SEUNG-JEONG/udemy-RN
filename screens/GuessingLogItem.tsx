@@ -1,13 +1,13 @@
-import Colors from "@/utils/colors";
+import { GameColors, ShadowStyles } from "@/constants/Colors";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const GuessingLogItem = ({
-  roundNumber,
-  guess
-}: {
+interface GuessingLogItemProps {
   roundNumber: number;
   guess: number;
-}) => {
+}
+
+const GuessingLogItem = ({ roundNumber, guess }: GuessingLogItemProps) => {
   return (
     <View style={styles.itemContainer}>
       <Text>#{roundNumber}</Text>
@@ -16,11 +16,11 @@ const GuessingLogItem = ({
   );
 };
 
-export default GuessingLogItem;
+export default React.memo(GuessingLogItem);
 
 const styles = StyleSheet.create({
   itemContainer: {
-    borderColor: Colors.primary400,
+    borderColor: GameColors.primary400,
     borderWidth: 1,
     borderRadius: 40,
     padding: 12,
@@ -28,10 +28,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    elevation: 4,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25
+    ...ShadowStyles.medium
   }
 });

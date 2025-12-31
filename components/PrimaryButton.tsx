@@ -1,3 +1,4 @@
+import { GameColors } from "@/constants/Colors";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 interface PrimaryButtonProps {
@@ -12,8 +13,8 @@ const PrimaryButton = ({ children, onPress }: PrimaryButtonProps) => {
                 onPress={onPress}
                 style={({ pressed }) =>
                     pressed
-                        ? [styles.buttonInnerontainer, styles.pressed]
-                        : styles.buttonInnerontainer
+                        ? [styles.buttonInnerContainer, styles.pressed]
+                        : styles.buttonInnerContainer
                 }
             >
                 <Text style={styles.text}>{children}</Text>
@@ -28,8 +29,8 @@ const styles = StyleSheet.create({
         margin: 4,
         overflow: "hidden"
     },
-    buttonInnerontainer: {
-        backgroundColor: "#72063c",
+    buttonInnerContainer: {
+        backgroundColor: GameColors.primary500,
         paddingVertical: 8,
         paddingHorizontal: 16
     },
