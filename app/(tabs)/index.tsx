@@ -64,7 +64,11 @@ export default function HomeScreen() {
 
   // View는 콘텐츠가 들어갈만큼만 차지
   return (
-    <LinearGradient colors={[GameColors.primary500, GameColors.accent500]} style={styles.container} onLayout={onLayoutRootView}>
+    <LinearGradient
+      colors={[GameColors.primary500, GameColors.accent500]}
+      style={styles.container}
+      onLayout={onLayoutRootView}
+    >
       <ImageBackground
         source={require("../../assets/images/background.png")}
         resizeMode="cover"

@@ -5,7 +5,13 @@ import PrimaryButton from "@/components/PrimaryButton";
 import Title from "@/components/Title";
 import { Ionicons } from "@expo/vector-icons";
 import { useCallback, useEffect, useState } from "react";
-import { Alert, FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  ListRenderItemInfo,
+  StyleSheet,
+  View
+} from "react-native";
 import GuessingLogItem from "./GuessingLogItem";
 
 interface GameScreenProps {
