@@ -1,5 +1,5 @@
 import { GameColors, ShadowStyles } from "@/constants/Colors";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 
 const NumberContainer = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -11,19 +11,21 @@ const NumberContainer = ({ children }: { children: React.ReactNode }) => {
 
 export default NumberContainer;
 
+const deviceWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   container: {
     borderWidth: 4,
     borderColor: GameColors.accent500,
     borderRadius: 8,
-    padding: 24,
-    margin: 24,
+    padding: deviceWidth < 450 ? 12 : 24,
+    margin: deviceWidth < 450 ? 12 : 24,
     alignItems: "center",
     justifyContent: "center",
     ...ShadowStyles.medium
   },
   number: {
-    fontSize: 60,
+    fontSize: deviceWidth < 380 ? 28 : 60,
     fontFamily: "open-sans-bold",
     color: GameColors.accent500
   }

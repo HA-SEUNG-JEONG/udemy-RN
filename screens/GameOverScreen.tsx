@@ -1,7 +1,7 @@
 import PrimaryButton from "@/components/PrimaryButton";
 import Title from "@/components/Title";
 import { GameColors, ShadowStyles } from "@/constants/Colors";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 
 interface GameOverScreenProps {
   userNumber: number;
@@ -9,6 +9,7 @@ interface GameOverScreenProps {
   onStartNewGame: () => void;
 }
 
+const deviceWidth = Dimensions.get("window").width;
 const GameOverScreen = ({
   userNumber,
   roundsNumber,
@@ -38,20 +39,20 @@ export default GameOverScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    padding: 24,
+    padding: deviceWidth < 450 ? 12 : 24,
     justifyContent: "center",
     alignItems: "center"
   },
   imageContainer: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
+    width: deviceWidth < 450 ? 150 : 200,
+    height: deviceWidth < 450 ? 150 : 200,
+    borderRadius: deviceWidth < 450 ? 75 : 100,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     borderColor: GameColors.primary400,
     overflow: "hidden",
-    margin: 36,
+    margin: deviceWidth < 450 ? 24 : 36,
     ...ShadowStyles.card
   },
   image: {
